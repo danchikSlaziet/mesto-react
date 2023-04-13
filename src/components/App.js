@@ -29,7 +29,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({isOpen: false, link: '', place: ''});
   }
 
   return (
@@ -37,36 +37,24 @@ function App() {
       <Header />
       <Main onCardClick={handleCardClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleAddPlaceClick} onEditProfile={handleEditProfileClick}/>
       <Footer />
-      <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} title="Редактировать профиль" name="profile">
+      <PopupWithForm buttonText='Сохранить' onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} title="Редактировать профиль" name="profile">
         <input required minLength="2" maxLength="40" id="name-input" type="text" className="form__input form__input_type_name" name="name" />
         <span className="form__input-error name-input-error"></span>
         <input required minLength="2" maxLength="200" id="job-input" type="text" className="form__input form__input_type_job" name="job" />
         <span className="form__input-error job-input-error"></span>
-        <button className="form__button" type="submit">
-          Сохранить
-        </button>
       </PopupWithForm>
-      <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} title="Новое место" name="publication">
+      <PopupWithForm buttonText='Создать' onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} title="Новое место" name="publication">
         <input required minLength="2" maxLength="30" id="place-input" type="text" className="form__input form__input_type_place" name="place" placeholder="Название" />
         <span className="form__input-error place-input-error"></span>
         <input required id="url-input" type="url" className="form__input form__input_type_url" name="url" placeholder="Ссылка на картинку" />
         <span className="form__input-error url-input-error"></span>
-        <button className="form__button" type="submit">
-          Создать
-        </button>
       </PopupWithForm>
       <ImagePopup onClose={closeAllPopups} card={selectedCard}/>
-      <PopupWithForm title="Вы уверены?" name="delete">
-        <button className="form__button" type="submit">
-          Да
-        </button>
+      <PopupWithForm buttonText='Да' title="Вы уверены?" name="delete">
       </PopupWithForm>
-      <PopupWithForm onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} title="Обновить аватар" name="avatar">
+      <PopupWithForm buttonText='Сохранить' onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} title="Обновить аватар" name="avatar">
         <input required id="avatar-url-input" type="url" className="form__input form__input_type_url" name="avatar-url" placeholder="Ссылка на картинку" />
         <span className="form__input-error avatar-url-input-error"></span>
-        <button className="form__button" type="submit">
-          Сохранить
-        </button>
       </PopupWithForm>
     </div>
   )

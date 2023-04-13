@@ -8,7 +8,7 @@ function ImagePopup(props) {
         <button type="button" className="popup__close-btn">
           <img onClick={props.onClose} src={closeIconPath} alt="иконка закрытия формы" className="popup__close-icon" />
         </button>
-        <img src={props.card.link} alt="альт для валидности" className="popup__photo-img" />
+        <img src={props.card.link} alt={`фото места ${props.card.place}`} className="popup__photo-img" />
         <p className="popup__photo-text">
           {props.card.place}
         </p>
