@@ -14,13 +14,6 @@ import AddPlacePopup from './AddPlacePopup';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({name: '', about: '', avatar: '', id: ''});
-  useEffect(() => {
-    api.getInfoAboutMe()
-      .then((aboutMeData) => {
-        setCurrentUser({name: aboutMeData.name, about: aboutMeData.about, avatar: aboutMeData.avatar, id: aboutMeData._id})
-      })
-      .catch(err => console.log(err));
-  }, []);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -28,6 +21,11 @@ function App() {
 
   const [cards, setCards] = useState([]);
   useEffect(() => {
+    api.getInfoAboutMe()
+      .then((aboutMeData) => {
+        setCurrentUser({name: aboutMeData.name, about: aboutMeData.about, avatar: aboutMeData.avatar, id: aboutMeData._id})
+      })
+      .catch(err => console.log(err));
     api.getInitialCards()
       .then((cardsData) => {
         setCards(cardsData);
@@ -39,7 +37,7 @@ function App() {
     const isLiked = card.likes.some(i => i._id === currentUser.id);
     api.toggleLike(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    }).catch(err => console.log(err));
   }
   function handleCardDelete(card) {
     api.deleteCard(card._id)
